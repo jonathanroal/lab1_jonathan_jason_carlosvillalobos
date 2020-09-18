@@ -10,8 +10,6 @@ image = cv2.imread("1.jpg")
 
 
 def RGB():
-    print("width = {}, height = {}, depth = {}".format(w, h, d))
-
     print("Valor de X: ")
     x = int(input())
 
@@ -61,9 +59,9 @@ def Recorte():
 
 
 def Resize():
-    print("Valor de nuevas dimensiones: ")
+    print("Valor de nuevas dimensiones:\ny: ")
     x = int(input())
-    print("x")
+    print("x: ")
     y = int(input())
     resized = cv2.resize(image, (x, y))
     cv2.imshow("Nueva Dimension", resized)
@@ -148,6 +146,7 @@ def main():
         if(opcion==0):
             break
         else:
+            print("width = {}, height = {}, depth = {}".format(w, h, d))
             switch(opcion)()
 
 main()

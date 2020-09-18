@@ -1,1 +1,1 @@
-lab1_jonathan_jason_carlosvillalobos
+# Laboratorio 1 / Jonathan Rojas / Jason Barrantes / Carlos Villalobos
