@@ -92,7 +92,7 @@ def Fixed_Resized():
     (h, w, d) = image4.shape
     print("width = {}, height = {}, depth = {}".format(w, h, d))
 
-    print("Digite el ancho de la imagen: ")
+    print("Digite el ancho deseado de la imagen: ")
     ancho = int(input())
     resized = imutils.resize(image4, ancho)
     cv2.imshow("Fixed Resized", resized)
