@@ -1,6 +1,11 @@
+import imutils
+import cv2
 import numpy as np
-import cv2 as cv
 from matplotlib import pyplot as plt
+
+
+# Cargar Imagen
+image = cv2.imread("9.jpg")
 
 def histEq():
     img = cv.imread("1.jpg")
@@ -51,7 +56,24 @@ def HQRes():
     img = cv.resize(img, dim, interpolation=cv.INTER_LANCZOS4)
     cv.imwrite("hi_res.jpg", img)
     
+def ColorBalance():
+    resized = cv2.resize(image, (500, 600))
+    imagen = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
+    print("Multiplicar R por: ")
+    colorR = int(input()) 
+    print("Multiplicar G por: ")
+    colorG = int(input())
+    print("Multiplicar B por: ")
+    colorB = int(input())
+    for i in range(600):
+        for j in range(500):
+            (r, g, b) = imagen[i, j]
+            imagen[i, j] = ( r * colorR, b * colorB, g * colorG)
+    cv2.imshow("Imagen", imagen)
+    cv2.waitKey(0)
+    return
 
 
+#ColorBalance()
 #histEq()
-HQRes()
+#HQRes()
