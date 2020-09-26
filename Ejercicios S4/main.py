@@ -20,4 +20,38 @@ def histEq():
     cv.imwrite("1HEQ.jpg", img2)
     cv.waitKey()
 
-histEq()
+def HQRes():
+    img = cv.imread("1.jpg")
+    scale_percent = 60  # percent of original size
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    img = cv.resize(img, dim, interpolation=cv.INTER_LINEAR)
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    img = cv.resize(img, dim, interpolation=cv.INTER_CUBIC)
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    img = cv.resize(img, dim, interpolation=cv.INTER_LANCZOS4)
+    cv.imwrite("low_res.jpg", img)
+    scale_percent = 160  # percent of original size
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    img = cv.resize(img, dim, interpolation=cv.INTER_LINEAR)
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    img = cv.resize(img, dim, interpolation=cv.INTER_CUBIC)
+    width = int(img.shape[1] * scale_percent / 100)
+    height = int(img.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    img = cv.resize(img, dim, interpolation=cv.INTER_LANCZOS4)
+    cv.imwrite("hi_res.jpg", img)
+    
+
+
+#histEq()
+HQRes()
