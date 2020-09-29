@@ -4,11 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
-
 def histEq():
     img = cv.imread("1.jpg")
     img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    cv.imshow("Original", img)
+    cv.waitKey()
     hist, bins = np.histogram(img.flatten(), 256, [0, 256])
     cdf = hist.cumsum()
     cdf_normalized = cdf * float(hist.max()) / cdf.max()
@@ -16,16 +16,19 @@ def histEq():
     plt.hist(img.flatten(), 256, [0, 256], color='r')
     plt.xlim([0, 256])
     plt.legend(('cdf', 'histogram'), loc='upper left')
-    plt.show()
+    #plt.show()
     cdf_m = np.ma.masked_equal(cdf, 0)
     cdf_m = (cdf_m - cdf_m.min()) * 255 / (cdf_m.max() - cdf_m.min())
     cdf = np.ma.filled(cdf_m, 0).astype('uint8')
     img2 = cdf[img]
     cv.imwrite("1HEQ.jpg", img2)
+    cv.imshow("Equalized", img2)
     cv.waitKey()
 
 def HQRes():
     img = cv.imread("1.jpg")
+    cv.imshow("Original", img)
+    cv.waitKey()
     scale_percent = 60  # percent of original size
     width = int(img.shape[1] * scale_percent / 100)
     height = int(img.shape[0] * scale_percent / 100)
@@ -40,6 +43,8 @@ def HQRes():
     dim = (width, height)
     img = cv.resize(img, dim, interpolation=cv.INTER_LANCZOS4)
     cv.imwrite("low_res.jpg", img)
+    cv.imshow("Low Resolution", img)
+    cv.waitKey()
     scale_percent = 160  # percent of original size
     width = int(img.shape[1] * scale_percent / 100)
     height = int(img.shape[0] * scale_percent / 100)
@@ -54,6 +59,8 @@ def HQRes():
     dim = (width, height)
     img = cv.resize(img, dim, interpolation=cv.INTER_LANCZOS4)
     cv.imwrite("hi_res.jpg", img)
+    cv.imshow("High Resolution", img)
+    cv.waitKey()
     
 def ColorBalance():
     image = cv.imread("9.jpg")
@@ -105,11 +112,11 @@ def ScreenMatting():
 
     cv.imshow("Fondo Azul", image)
     cv.imshow("Final", final_image)
-    cv.imshow("BlueScreenMatting.jpg", final_image)  
+    cv.imwrite("BlueScreenMatting.jpg", final_image)
     cv.waitKey(0)
 
 
-#ScreenMatting()
-#ColorBalance()
-#histEq()
-#HQRes()
+ScreenMatting()
+ColorBalance()
+histEq()
+HQRes()
