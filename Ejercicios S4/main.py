@@ -1,11 +1,10 @@
 import imutils
-import cv2
+import cv2 as cv
 import numpy as np
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 
 
-# Cargar Imagen
-image = cv2.imread("9.jpg")
+
 
 def histEq():
     img = cv.imread("1.jpg")
@@ -57,23 +56,60 @@ def HQRes():
     cv.imwrite("hi_res.jpg", img)
     
 def ColorBalance():
-    resized = cv2.resize(image, (500, 600))
-    imagen = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
+    image = cv.imread("9.jpg")
+    resized = cv.resize(image, (500, 600))
+    imagen = cv.cvtColor(resized, cv.COLOR_BGR2RGB)
+
     print("Multiplicar R por: ")
-    colorR = int(input()) 
+    colorR = int(input())
     print("Multiplicar G por: ")
     colorG = int(input())
     print("Multiplicar B por: ")
     colorB = int(input())
+
     for i in range(600):
         for j in range(500):
             (r, g, b) = imagen[i, j]
-            imagen[i, j] = ( r * colorR, b * colorB, g * colorG)
-    cv2.imshow("Imagen", imagen)
-    cv2.waitKey(0)
+            imagen[i, j] = (r * colorR, b * colorB, g * colorG)
+            
+    cv.imshow("Imagen", imagen)
+    cv.waitKey(0)
+    cv.imwrite("ColorBalance.jpg", imagen)
     return
 
 
+def ScreenMatting():
+    #Imagen Original con Fondo Azul
+    image = cv.imread('blueScreen.jpg')
+    #Copia de la Original
+    image_copy = np.copy(image)
+    image_copy = cv.cvtColor(image_copy, cv.COLOR_BGR2RGB)
+    #Azules
+    lower_blue = np.array([0, 0, 100])
+    upper_blue = np.array([120, 100, 255])
+    #Mascara
+    mask = cv.inRange(image_copy, lower_blue, upper_blue)
+    masked_image = np.copy(image_copy)
+    masked_image[mask != 0] = [0, 0, 0]
+    #Fondo
+    background_image = cv.imread('background.jpg')
+    background_image = cv.cvtColor(background_image, cv.COLOR_BGR2RGB)
+    cv.imshow("background", background_image)
+    (h, w, d) = image_copy.shape
+
+    crop_background = background_image[0:h, 0:w]
+    crop_background[mask == 0] = [0, 0, 0]
+    #Imagen Final
+    final_image = crop_background + masked_image
+
+
+    cv.imshow("Fondo Azul", image)
+    cv.imshow("Final", final_image)
+    cv.imshow("BlueScreenMatting.jpg", final_image)  
+    cv.waitKey(0)
+
+
+#ScreenMatting()
 #ColorBalance()
 #histEq()
 #HQRes()
