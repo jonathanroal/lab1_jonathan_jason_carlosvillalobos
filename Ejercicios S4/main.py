@@ -124,7 +124,17 @@ def PhotoEffects_Solarization():
     solarizada = ImageOps.solarize(imagen, threshold=64)
     solarizada.show()
     
-    
+def PhotoEffects_Contrast():
+    img = cv.imread('background.jpg')
+    contrast_img = cv.addWeighted(img, 2.5, np.zeros(img.shape, img.dtype), 0, 0)
+
+    cv.imshow('Original Image', img)
+
+    cv.imshow('Contrast Image', contrast_img)
+
+    cv.waitKey(0)    
+   
+PhotoEffects_Contrast()    
 PhotoEffects_Solarization()
 ScreenMatting()
 ColorBalance()
