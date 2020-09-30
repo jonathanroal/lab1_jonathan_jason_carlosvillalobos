@@ -114,8 +114,18 @@ def ScreenMatting():
     cv.imshow("Final", final_image)
     cv.imwrite("BlueScreenMatting.jpg", final_image)
     cv.waitKey(0)
+    
+    
+def PhotoEffects_Solarization():
+    imagen = Image.open("background.jpg")
+    imagen.size   # 800x600
+    imagen.mode   # RGB
 
-
+    solarizada = ImageOps.solarize(imagen, threshold=64)
+    solarizada.show()
+    
+    
+PhotoEffects_Solarization()
 ScreenMatting()
 ColorBalance()
 histEq()
